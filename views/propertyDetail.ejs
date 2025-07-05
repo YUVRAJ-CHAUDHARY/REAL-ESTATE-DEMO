@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Details - Vedanta Residency</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include("include/header.ejs"); %>
+  <main>
+    <div class="card">
+      <h2>Property Details</h2>
+      <!-- Property details go here. Example: -->
+      <% if (property) { %>
+        <h3><%= property.title %></h3>
+        <p><%= property.description %></p>
+        <p><strong>Price:</strong> ₹<%= property.price %></p>
+        <% if (property.image) { %>
+          <img src="/uploads/<%= property.image %>" alt="Property Image" style="max-width:100%;border-radius:8px;margin:1rem 0;">
+        <% } %>
+      <% } else { %>
+        <p>Property not found.</p>
+      <% } %>
+    </div>
+  </main>
+  <%- include("include/footer.ejs"); %>
+</body>
+</html> 

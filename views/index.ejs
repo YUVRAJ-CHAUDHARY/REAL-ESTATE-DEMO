@@ -1,0 +1,247 @@
+<%- include('include/head.ejs') %>
+<link rel="stylesheet" href="/css/index.css">
+
+<body>
+  <%- include("include/header.ejs"); %>
+  <main>
+    <!-- Image Slider -->
+    <div class="slider" id="mainSlider">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+        class="active" alt="Modern Apartment">
+      <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=800&q=80"
+        alt="Luxury Living Room">
+      <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80"
+        alt="Cozy Flat">
+      <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80"
+        alt="Elegant Villa">
+      <div class="slider-controls">
+        <button id="prevSlide">&#10094;</button>
+        <button id="nextSlide">&#10095;</button>
+      </div>
+    </div>
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Find Your Dream Home in Muzaffarnagar</h2>
+        <p>Welcome to Vedanta Residency, your trusted real estate partner in Muzaffarnagar, UP. Discover premium
+          properties, modern amenities, and a vibrant community. Start your journey to a new home today!</p>
+        <a href="/register" class="btn">Get Started</a>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+          alt="Modern Apartment">
+      </div>
+    </section>
+    <!-- About Section with Images -->
+    <section class="card">
+      <h3>About Vedanta Residency</h3>
+      <p>Vedanta Residency offers a blend of luxury, comfort, and convenience. Our properties are designed to provide a
+        modern lifestyle with all the amenities you need. Enjoy lush green surroundings, 24/7 security, and a vibrant
+        community in the heart of Muzaffarnagar.</p>
+      <div class="about-images">
+        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=300&q=80"
+          alt="Green Spaces">
+        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=300&q=80"
+          alt="Modern Amenities">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=300&q=80"
+          alt="Community">
+      </div>
+    </section>
+    <section class="featured">
+      <h3>Featured Properties</h3>
+      <div class="property-list">
+        <div class="property-card">
+          <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80"
+            alt="Property 1">
+          <div class="info">
+            <h4>Luxury 3BHK Apartment</h4>
+            <p>Spacious, modern, and located in the heart of Muzaffarnagar.</p>
+            <div class="price">₹ 45,00,000</div>
+          </div>
+        </div>
+        <div class="property-card">
+          <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80"
+            alt="Property 2">
+          <div class="info">
+            <h4>Elegant Villa</h4>
+            <p>Private garden, 4 bedrooms, and premium amenities.</p>
+            <div class="price">₹ 1,20,00,000</div>
+          </div>
+        </div>
+        <div class="property-card">
+          <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80"
+            alt="Property 3">
+          <div class="info">
+            <h4>Cozy 2BHK Flat</h4>
+            <p>Perfect for small families, close to schools and markets.</p>
+            <div class="price">₹ 32,00,000</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Project Site Profile Section -->
+    <section class="project-profile card">
+      <h3>Project Site Profile</h3>
+      <p>Vedanta Residency is strategically located in the heart of Muzaffarnagar, offering easy access to major
+        landmarks, schools, hospitals, and shopping centers. The site is designed with modern infrastructure, lush green
+        landscapes, and a focus on community living.</p>
+      <ul>
+        <li><strong>Location:</strong> Near City Center, Muzaffarnagar, UP</li>
+        <li><strong>Total Area:</strong> 10 Acres</li>
+        <li><strong>Green Spaces:</strong> 60% open & landscaped</li>
+        <li><strong>Key Amenities:</strong> Clubhouse, Swimming Pool, Gym, Kids Play Area, 24/7 Security</li>
+        <li><strong>Connectivity:</strong> Close to schools, hospitals, and shopping malls</li>
+      </ul>
+    </section>
+    <!-- Statistics Section -->
+    <section class="statistics-section card">
+      <h3>Our Achievements</h3>
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Ongoing Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Awards & Recognition Section -->
+    <section class="awards-section card">
+      <h3>Awards & Recognition</h3>
+      <p>Recognized for excellence in real estate development and customer satisfaction</p>
+      <div class="awards-container">
+        <div class="award-item">
+          <i class="fas fa-trophy"></i>
+          <h4>Best Developer 2024</h4>
+          <p>Real Estate Excellence Award</p>
+        </div>
+        <div class="award-item">
+          <i class="fas fa-star"></i>
+          <h4>Customer Choice</h4>
+          <p>Most Trusted Brand</p>
+        </div>
+        <div class="award-item">
+          <i class="fas fa-medal"></i>
+          <h4>Quality Excellence</h4>
+          <p>Construction Standards</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section card">
+      <h3>What Our Clients Say</h3>
+      <div class="testimonials-container">
+        <div class="testimonial-item">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar" style="background:#4CAF50;">
+              <span>AS</span>
+            </div>
+            <div class="testimonial-info">
+              <h4>Amit Sharma</h4>
+              <div class="testimonial-rating">★★★★★</div>
+            </div>
+          </div>
+          <p class="testimonial-text">"Vedanta Residency has exceeded my expectations! The transparency and professionalism throughout the property buying process were commendable."</p>
+        </div>
+        <div class="testimonial-item">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar" style="background:#2196F3;">
+              <span>PV</span>
+            </div>
+            <div class="testimonial-info">
+              <h4>Priya Verma</h4>
+              <div class="testimonial-rating">★★★★★</div>
+            </div>
+          </div>
+          <p class="testimonial-text">"I am thrilled with my new home purchased through Vedanta Residency. The team ensured everything was hassle-free and delivered as promised."</p>
+        </div>
+        <div class="testimonial-item">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar" style="background:#FF9800;">
+              <span>RM</span>
+            </div>
+            <div class="testimonial-info">
+              <h4>Rohit Mehta</h4>
+              <div class="testimonial-rating">★★★★★</div>
+            </div>
+          </div>
+          <p class="testimonial-text">"Vedanta Residency's dedication to customer satisfaction is impressive. They kept me informed at every step and addressed all my queries promptly."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Property Showcase -->
+    <section class="enhanced-properties card">
+      <h3>Premium Properties</h3>
+      <div class="property-grid">
+        <div class="premium-property-card">
+          <div class="property-image-container">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80" alt="Luxury Villa" class="property-image">
+            <div class="property-badge badge-premium">PREMIUM</div>
+          </div>
+          <div class="property-content">
+            <h4>Luxury Villa</h4>
+            <p>Spacious 4BHK villa with private garden and premium amenities</p>
+            <div class="property-footer">
+              <div class="property-price">₹ 1,50,00,000</div>
+              <button class="btn property-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="premium-property-card">
+          <div class="property-image-container">
+            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=400&q=80" alt="Modern Apartment" class="property-image">
+            <div class="property-badge badge-new">NEW</div>
+          </div>
+          <div class="property-content">
+            <h4>Modern 3BHK</h4>
+            <p>Contemporary design with smart home features</p>
+            <div class="property-footer">
+              <div class="property-price">₹ 75,00,000</div>
+              <button class="btn property-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+        <div class="premium-property-card">
+          <div class="property-image-container">
+            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80" alt="Cozy Flat" class="property-image">
+            <div class="property-badge badge-popular">POPULAR</div>
+          </div>
+          <div class="property-content">
+            <h4>Cozy 2BHK</h4>
+            <p>Perfect for small families, close to schools</p>
+            <div class="property-footer">
+              <div class="property-price">₹ 45,00,000</div>
+              <button class="btn property-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Get in Touch Section -->
+    <section class="get-in-touch-section card">
+      <h3>Get in Touch</h3>
+      <p>Have questions or need help? Contact us for more information about Vedanta Residency or to schedule a visit.</p>
+      <ul>
+        <li><strong>Phone:</strong> +91 98765 43210</li>
+        <li><strong>Email:</strong> info@vedantaresidency.com</li>
+        <li><strong>Address:</strong> A2z Road, Muzaffarnagar</li>
+      </ul>
+    </section>
+  </main>
+  <%- include("include/footer.ejs"); %>
+  <script src="/js/slider.js"></script>
+  <script src="/js/index.js"></script>
+</body>
+</html>

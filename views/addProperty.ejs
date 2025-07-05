@@ -1,0 +1,33 @@
+<%- include('include/head.ejs') %>
+<body>
+<%- include("include/header.ejs"); %>
+  <main>
+    <div class="form-contact-container">
+      <div class="card form-section">
+        <h2>Add Property</h2>
+        <form action="/property/add" method="POST" enctype="multipart/form-data">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" required></textarea>
+          <label for="price">Price</label>
+          <input type="number" id="price" name="price" required>
+          <label for="image">Image</label>
+          <input type="file" id="image" name="image" accept="image/*" required>
+          <button type="submit" class="btn">Add Property</button>
+        </form>
+      </div>
+      <div class="card get-in-touch-section">
+        <h2>Get in Touch</h2>
+        <p>Have questions or need help? Contact us for more information about Vedanta Residency or to schedule a visit.</p>
+        <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left;">
+          <li><strong>Phone:</strong> +91 98765 43210</li>
+          <li><strong>Email:</strong> info@vedantaresidency.com</li>
+          <li><strong>Address:</strong> Near City Center, Muzaffarnagar, UP</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+    <%- include("include/footer.ejs"); %>
+</body>
+</html> 

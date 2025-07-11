@@ -3,9 +3,25 @@
 <body>
   <%- include('include/header.ejs') %>
   <main>
-    <div class="card">
-      <h2>Dashboard</h2>
-      <!-- Dashboard content goes here -->
+    <h2 style="text-align:center; margin-bottom:2rem;">Dashboard</h2>
+    <div class="dashboard-cards">
+      <div class="dashboard-card dashboard-card-green">
+        <div class="dashboard-card-icon"><i class="fas fa-home"></i></div>
+        <div class="dashboard-card-title">My Properties</div>
+        <div class="dashboard-card-value">5</div>
+      </div>
+      <div class="dashboard-card dashboard-card-blue">
+        <div class="dashboard-card-icon"><i class="fas fa-user"></i></div>
+        <div class="dashboard-card-title">Profile</div>
+        <div class="dashboard-card-value">Edit</div>
+      </div>
+      <div class="dashboard-card dashboard-card-orange">
+        <div class="dashboard-card-icon"><i class="fas fa-bell"></i></div>
+        <div class="dashboard-card-title">Notifications</div>
+        <div class="dashboard-card-value">2</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:2rem;">
       <p>Welcome to your dashboard. Manage your properties and profile here.</p>
     </div>
   </main>

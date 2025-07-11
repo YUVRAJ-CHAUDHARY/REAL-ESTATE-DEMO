@@ -3,6 +3,7 @@
 
 <body>
   <%- include("include/header.ejs"); %>
+  <button class="btn side-float-btn" id="getInTouchBtnSidebar" title="Get in Touch"><i class="fas fa-envelope"></i></button>
   <main>
     <!-- Image Slider -->
     <div class="slider" id="mainSlider">
@@ -230,7 +231,14 @@
       </div>
     </section>
     <!-- Get in Touch Section -->
-    <section class="get-in-touch-section card">
+    <div style="text-align:center; margin:2rem 0;">
+      <button class="btn" id="getInTouchBtn" style="font-size:1.1rem; padding:0.8rem 2rem;">Get in Touch</button>
+    </div>
+  </main>
+  <!-- Get in Touch Modal -->
+  <div id="getInTouchModal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-modal" id="closeGetInTouch">&times;</span>
       <h3>Get in Touch</h3>
       <p>Have questions or need help? Contact us for more information about Vedanta Residency or to schedule a visit.</p>
       <ul>
@@ -238,10 +246,31 @@
         <li><strong>Email:</strong> info@vedantaresidency.com</li>
         <li><strong>Address:</strong> A2z Road, Muzaffarnagar</li>
       </ul>
-    </section>
-  </main>
+    </div>
+  </div>
   <%- include("include/footer.ejs"); %>
   <script src="/js/slider.js"></script>
   <script src="/js/index.js"></script>
+  <script>
+    // Modal logic
+    const getInTouchBtn = document.getElementById('getInTouchBtn');
+    const getInTouchBtnSidebar = document.getElementById('getInTouchBtnSidebar');
+    const getInTouchModal = document.getElementById('getInTouchModal');
+    const closeGetInTouch = document.getElementById('closeGetInTouch');
+    if(getInTouchBtn) getInTouchBtn.addEventListener('click', () => {
+      getInTouchModal.style.display = 'flex';
+    });
+    if(getInTouchBtnSidebar) getInTouchBtnSidebar.addEventListener('click', () => {
+      getInTouchModal.style.display = 'flex';
+    });
+    closeGetInTouch.addEventListener('click', () => {
+      getInTouchModal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === getInTouchModal) {
+        getInTouchModal.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>

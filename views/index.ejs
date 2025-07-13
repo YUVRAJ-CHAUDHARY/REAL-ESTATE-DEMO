@@ -3,7 +3,6 @@
 
 <body>
   <%- include("include/header.ejs"); %>
-  <button class="btn side-float-btn" id="getInTouchBtnSidebar" title="Get in Touch"><i class="fas fa-envelope"></i></button>
   <main>
     <!-- Image Slider -->
     <div class="slider" id="mainSlider">
@@ -14,6 +13,8 @@
       <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80"
         alt="Cozy Flat">
       <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80"
+        alt="Elegant Villa">
+        <img src="https://cdn.confident-group.com/wp-content/uploads/2024/12/27103036/types-of-real-estate-overview-scaled.jpg"
         alt="Elegant Villa">
       <div class="slider-controls">
         <button id="prevSlide">&#10094;</button>
@@ -139,47 +140,7 @@
       </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section card">
-      <h3>What Our Clients Say</h3>
-      <div class="testimonials-container">
-        <div class="testimonial-item">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar" style="background:#4CAF50;">
-              <span>AS</span>
-            </div>
-            <div class="testimonial-info">
-              <h4>Amit Sharma</h4>
-              <div class="testimonial-rating">★★★★★</div>
-            </div>
-          </div>
-          <p class="testimonial-text">"Vedanta Residency has exceeded my expectations! The transparency and professionalism throughout the property buying process were commendable."</p>
-        </div>
-        <div class="testimonial-item">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar" style="background:#2196F3;">
-              <span>PV</span>
-            </div>
-            <div class="testimonial-info">
-              <h4>Priya Verma</h4>
-              <div class="testimonial-rating">★★★★★</div>
-            </div>
-          </div>
-          <p class="testimonial-text">"I am thrilled with my new home purchased through Vedanta Residency. The team ensured everything was hassle-free and delivered as promised."</p>
-        </div>
-        <div class="testimonial-item">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar" style="background:#FF9800;">
-              <span>RM</span>
-            </div>
-            <div class="testimonial-info">
-              <h4>Rohit Mehta</h4>
-              <div class="testimonial-rating">★★★★★</div>
-            </div>
-          </div>
-          <p class="testimonial-text">"Vedanta Residency's dedication to customer satisfaction is impressive. They kept me informed at every step and addressed all my queries promptly."</p>
-        </div>
-      </div>
+    
     </section>
 
     <!-- Enhanced Property Showcase -->
@@ -230,10 +191,11 @@
         </div>
       </div>
     </section>
-    <!-- Get in Touch Section -->
-    <div style="text-align:center; margin:2rem 0;">
-      <button class="btn" id="getInTouchBtn" style="font-size:1.1rem; padding:0.8rem 2rem;">Get in Touch</button>
-    </div>
+    <!-- Real Estate Types Overview Image (only on main page) -->
+    <section class="card" style="text-align:center; margin-bottom:2rem;">
+      <h3 style="color:var(--accent);">Types of Real Estate Overview</h3>
+      <img src="https://cdn.confident-group.com/wp-content/uploads/2024/12/27103036/types-of-real-estate-overview-scaled.jpg" alt="Types of Real Estate Overview" style="max-width:100%;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.18);margin:1.5rem 0;">
+    </section>
   </main>
   <!-- Get in Touch Modal -->
   <div id="getInTouchModal" class="modal-overlay">
@@ -251,26 +213,5 @@
   <%- include("include/footer.ejs"); %>
   <script src="/js/slider.js"></script>
   <script src="/js/index.js"></script>
-  <script>
-    // Modal logic
-    const getInTouchBtn = document.getElementById('getInTouchBtn');
-    const getInTouchBtnSidebar = document.getElementById('getInTouchBtnSidebar');
-    const getInTouchModal = document.getElementById('getInTouchModal');
-    const closeGetInTouch = document.getElementById('closeGetInTouch');
-    if(getInTouchBtn) getInTouchBtn.addEventListener('click', () => {
-      getInTouchModal.style.display = 'flex';
-    });
-    if(getInTouchBtnSidebar) getInTouchBtnSidebar.addEventListener('click', () => {
-      getInTouchModal.style.display = 'flex';
-    });
-    closeGetInTouch.addEventListener('click', () => {
-      getInTouchModal.style.display = 'none';
-    });
-    window.addEventListener('click', (e) => {
-      if (e.target === getInTouchModal) {
-        getInTouchModal.style.display = 'none';
-      }
-    });
-  </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 /* Index Page Specific Styles */
 
 /* Statistics Section */
+/*
 .statistics-section {
   text-align: center;
   margin-top: 2rem;
@@ -40,6 +41,7 @@
 }
 
 /* Awards Section */
+/*
 .awards-section {
   text-align: center;
   margin-top: 2rem;
@@ -82,6 +84,7 @@
 }
 
 /* Testimonials Section */
+/*
 .testimonials-section {
   text-align: center;
   margin-top: 2rem;
@@ -141,6 +144,7 @@
 }
 
 /* Enhanced Properties Section */
+/*
 .enhanced-properties {
   margin-top: 2rem;
 }
@@ -235,6 +239,7 @@
 }
 
 /* Project Profile Section */
+/*
 .project-profile {
   text-align: center;
   margin-top: 2rem;
@@ -260,6 +265,7 @@
 }
 
 /* Get in Touch Section */
+/*
 .get-in-touch-section {
   text-align: center;
   margin-top: 2rem;
@@ -287,6 +293,7 @@
 }
 
 /* About Images */
+/*
 .about-images {
   display: flex;
   justify-content: center;
@@ -299,3 +306,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 } 
+
+
+
+*/

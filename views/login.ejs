@@ -8,18 +8,55 @@
 </head>
 <body>
   <%- include("include/header.ejs") %>
-  <main>
-    <div class="card">
-      <h2>Login</h2>
-      <p id="errorMsg" style="color:red; display:none;"></p>
-      <form id="loginForm">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit" class="btn">Login</button>
-      </form>
-      <p>Don't have an account? <a href="/register" style="color:var(--accent)">Register</a></p>
+  <main class="auth-main">
+    <div class="auth-container">
+
+      <div class="card auth-form-card">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Login to manage your properties and enquiries.</p>
+        <p id="errorMsg" class="error-msg"></p>
+        <form id="loginForm">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Your password" required>
+          <button type="submit" class="btn auth-submit-btn">Login</button>
+        </form>
+        <p class="footer-link">Don't have an account? <a href="/register">Register</a></p>
+      </div>
+
+      <div class="card auth-features-card">
+        <h2>Why Vedanta Residency?</h2>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">🏡</div>
+          <div>
+            <h4>Manage Properties</h4>
+            <p>Add, update, and track all your property listings from one place.</p>
+          </div>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">📋</div>
+          <div>
+            <h4>Track Enquiries</h4>
+            <p>View and respond to customer enquiries instantly from your dashboard.</p>
+          </div>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">📍</div>
+          <div>
+            <h4>Local Expertise</h4>
+            <p>Trusted real estate partner serving Muzaffarnagar for over 12 years.</p>
+          </div>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon">💬</div>
+          <div>
+            <h4>24/7 Support</h4>
+            <p>Our team is always available to help you with any queries or concerns.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
   <%- include("include/footer.ejs"); %>
@@ -31,6 +68,8 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const errorMsg = document.getElementById('errorMsg');
+
+      errorMsg.style.display = 'none';
 
       try {
         const res = await fetch('/auth/login', {
@@ -44,6 +83,7 @@
         if (data.success) {
           localStorage.setItem('userId', data.userId);
           localStorage.setItem('userName', data.name);
+          localStorage.setItem('token', data.token);
           window.location.href = '/dashboard';
         } else {
           errorMsg.style.display = 'block';

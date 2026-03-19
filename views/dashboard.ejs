@@ -1,80 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - Vedanta Residency</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
+<%- include('include/head.ejs') %>
 <body>
-  <%- include("include/header.ejs") %>
-  <main>
-    <div class="card">
-      <h2>Register</h2>
-      <p id="errorMsg" style="color:red; display:none;"></p>
-      <p id="successMsg" style="color:green; display:none;"></p>
-      <form id="registerForm">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit" class="btn">Register</button>
-      </form>
-      <p>Already have an account? <a href="/login" style="color:var(--accent)">Login</a></p>
+  <%- include("include/header.ejs"); %>
+  <main class="dashboard-main">
+
+    <!-- Welcome Bar -->
+    <div class="card dashboard-welcome">
+      <h2>Welcome back, <span id="welcomeName">...</span> 👋</h2>
+      <p>Here's what's happening with your properties today.</p>
     </div>
+
+    <!-- Stats Cards -->
+    <div class="dashboard-cards">
+      <div class="dashboard-card dashboard-card-green">
+        <div class="dashboard-card-icon"><i class="fas fa-home"></i></div>
+        <div class="dashboard-card-title">Total Properties</div>
+        <div class="dashboard-card-value" id="propertyCount">...</div>
+      </div>
+      <div class="dashboard-card dashboard-card-blue">
+        <div class="dashboard-card-icon"><i class="fas fa-bell"></i></div>
+        <div class="dashboard-card-title">Total Enquiries</div>
+        <div class="dashboard-card-value" id="enquiryCount">...</div>
+      </div>
+      <div class="dashboard-card dashboard-card-orange">
+        <div class="dashboard-card-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="dashboard-card-title">Available</div>
+        <div class="dashboard-card-value" id="availableCount">...</div>
+      </div>
+      <div class="dashboard-card" style="background:linear-gradient(135deg,#e74c3c,#c0392b); color:#fff;">
+        <div class="dashboard-card-icon"><i class="fas fa-times-circle"></i></div>
+        <div class="dashboard-card-title">Sold</div>
+        <div class="dashboard-card-value" id="soldCount">...</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card">
+      <h3 style="margin-bottom:1rem;">Quick Actions</h3>
+      <div class="dashboard-actions">
+        <a href="/addProperty" class="btn action-btn">
+          <i class="fas fa-plus"></i> Add Property
+        </a>
+        <a href="/addProperty" class="btn action-btn" style="background:#2196F3;">
+          <i class="fas fa-list"></i> Manage Properties
+        </a>
+        <a href="/" class="btn action-btn" style="background:#43a047;">
+          <i class="fas fa-eye"></i> View Website
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent Properties -->
+    <div class="card">
+      <h3 style="margin-bottom:1rem;">Recent Properties</h3>
+      <div id="recentProperties">
+        <p>Loading...</p>
+      </div>
+    </div>
+
+    <!-- Recent Enquiries -->
+    <div class="card">
+      <h3 style="margin-bottom:1rem;">Recent Enquiries</h3>
+      <div id="recentEnquiries">
+        <p>Loading...</p>
+      </div>
+    </div>
+
   </main>
   <%- include("include/footer.ejs"); %>
 
   <script>
-    document.getElementById('registerForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+    const fallbackImg = 'https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=100&q=80';
 
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const errorMsg = document.getElementById('errorMsg');
-      const successMsg = document.getElementById('successMsg');
+    // set welcome name from localStorage
+    const userName = localStorage.getItem('userName');
+    if (userName) document.getElementById('welcomeName').textContent = userName;
 
-      errorMsg.style.display = 'none';
-      successMsg.style.display = 'none';
-
-      try {
-        const res = await fetch('/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, password })
-        });
-
-        const data = await res.json();
-
-        if (data.success) {
-          localStorage.setItem('userId', data.userId);
-          localStorage.setItem('userName', name);
-          successMsg.style.display = 'block';
-          successMsg.textContent = 'Registration successful! Redirecting...';
-          setTimeout(() => window.location.href = '/dashboard', 1500);
-        } else {
-          errorMsg.style.display = 'block';
-          errorMsg.textContent = data.message || 'Registration failed';
-        }
-      } catch (err) {
-        errorMsg.style.display = 'block';
-        errorMsg.textContent = 'Something went wrong, try again';
-      }
-    });
+    // load dashboard stats
     fetch('/dashboard/stats')
-  .then(r => r.json())
-  .then(data => {
-    if (data.success) {
-      document.getElementById('propertyCount').textContent = data.propertyCount;
-      document.getElementById('enquiryCount').textContent = data.enquiryCount;
-      // localStorage se naam lega, nahi mila toh API wala
-      const name = localStorage.getItem('userName') || data.userName;
-      document.getElementById('userName').textContent = name;
-    }
-  });
+      .then(r => r.json())
+      .then(data => {
+        if (!data.success) return;
+        document.getElementById('propertyCount').textContent = data.propertyCount;
+        document.getElementById('enquiryCount').textContent = data.enquiryCount;
+        document.getElementById('availableCount').textContent = data.availableCount || 0;
+        document.getElementById('soldCount').textContent = data.soldCount || 0;
+        if (!userName) document.getElementById('welcomeName').textContent = data.userName;
+      });
+
+    // load recent properties
+    fetch('/property/all')
+      .then(r => r.json())
+      .then(data => {
+        const container = document.getElementById('recentProperties');
+        if (!data.success || !data.data.length) {
+          container.innerHTML = '<p>No properties added yet.</p>';
+          return;
+        }
+
+        container.innerHTML = data.data.slice(0, 5).map(p => `
+          <div class="dashboard-list-item">
+            <img src="${p.images?.[0] || fallbackImg}" alt="${p.title}">
+            <div class="dashboard-list-info">
+              <h4>${p.title}</h4>
+              <p>${p.city || ''} · ₹ ${Number(p.price).toLocaleString('en-IN')}</p>
+            </div>
+            <span class="status-badge status-${p.status}">${p.status}</span>
+          </div>
+        `).join('');
+      });
+
+    // load recent enquiries
+    fetch('/enquiry/all')
+      .then(r => r.json())
+      .then(data => {
+        const container = document.getElementById('recentEnquiries');
+        if (!data.success || !data.data.length) {
+          container.innerHTML = '<p>No enquiries yet.</p>';
+          return;
+        }
+
+        container.innerHTML = data.data.slice(0, 5).map(e => `
+          <div class="dashboard-list-item">
+            <div class="enquiry-avatar">${e.name?.[0]?.toUpperCase() || '?'}</div>
+            <div class="dashboard-list-info">
+              <h4>${e.name}</h4>
+              <p>${e.phone} · ${e.message || 'No message'}</p>
+            </div>
+            <span style="font-size:0.8rem; color:#888;">${new Date(e.createdAt).toLocaleDateString('en-IN')}</span>
+          </div>
+        `).join('');
+      });
   </script>
 </body>
 </html>

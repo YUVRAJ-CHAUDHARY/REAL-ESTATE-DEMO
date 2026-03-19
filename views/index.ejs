@@ -38,10 +38,10 @@
       </div>
     </section>
 
-    <!-- Featured Properties - MongoDB se -->
+    <!-- All Properties from MongoDB -->
     <section class="featured">
-      <h3>Featured Properties</h3>
-      <div class="property-list" id="featuredList">
+      <h3>Our Properties</h3>
+      <div class="property-grid" id="propertyGrid">
         <p>Loading...</p>
       </div>
     </section>
@@ -105,14 +105,6 @@
       </div>
     </section>
 
-    <!-- Premium Properties - MongoDB se -->
-    <section class="enhanced-properties card">
-      <h3>Premium Properties</h3>
-      <div class="property-grid" id="premiumGrid">
-        <p>Loading...</p>
-      </div>
-    </section>
-
     <!-- Real Estate Types -->
     <section class="card" style="text-align:center; margin-bottom:2rem;">
       <h3 style="color:var(--accent);">Types of Real Estate Overview</h3>
@@ -138,43 +130,32 @@
   <script src="/js/slider.js"></script>
   <script src="/js/index.js"></script>
   <script>
+    const fallbackImg = 'https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80';
+
     fetch('/property/all')
       .then(r => r.json())
       .then(data => {
+        const grid = document.getElementById('propertyGrid');
+
         if (!data.success || !data.data.length) {
-          document.getElementById('featuredList').innerHTML = '<p>No properties found.</p>';
-          document.getElementById('premiumGrid').innerHTML = '<p>No properties found.</p>';
+          grid.innerHTML = '<p>No properties found.</p>';
           return;
         }
 
-        const properties = data.data;
-        const badges = ['PREMIUM', 'NEW', 'POPULAR'];
-        const badgeClasses = ['badge-premium', 'badge-new', 'badge-popular'];
-        const fallbackImg = 'https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80';
-
-        document.getElementById('featuredList').innerHTML = properties.slice(0, 3).map(p => `
-          <div class="property-card" onclick="window.location.href='/propertyDetail?id=${p._id}'" style="cursor:pointer;">
-            <img src="${p.images?.[0] || fallbackImg}" alt="${p.title}">
-            <div class="info">
-              <h4>${p.title}</h4>
-              <p>${p.description || ''}</p>
-              <div class="price">₹ ${Number(p.price).toLocaleString('en-IN')}</div>
-            </div>
-          </div>
-        `).join('');
-
-        document.getElementById('premiumGrid').innerHTML = properties.slice(0, 3).map((p, i) => `
+        grid.innerHTML = data.data.map(p => `
           <div class="premium-property-card" onclick="window.location.href='/propertyDetail?id=${p._id}'" style="cursor:pointer;">
             <div class="property-image-container">
               <img src="${p.images?.[0] || fallbackImg}" alt="${p.title}" class="property-image">
-              <div class="property-badge ${badgeClasses[i]}">${badges[i]}</div>
+              <div class="property-badge badge-${p.status === 'sold' ? 'popular' : p.status === 'rented' ? 'new' : 'premium'}">
+                ${p.status === 'sold' ? 'SOLD' : p.status === 'rented' ? 'RENTED' : 'AVAILABLE'}
+              </div>
             </div>
             <div class="property-content">
               <h4>${p.title}</h4>
               <p>${p.description || ''}</p>
               <div class="property-footer">
                 <div class="property-price">₹ ${Number(p.price).toLocaleString('en-IN')}</div>
-                <button class="btn property-btn">View Details</button>
+                <button class="btn" style="background:#33463e; color:#fff;">View Details</button>
               </div>
             </div>
           </div>

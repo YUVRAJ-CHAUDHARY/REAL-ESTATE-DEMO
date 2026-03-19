@@ -38,9 +38,18 @@
       </div>
     </section>
 
-    <!-- All Properties from MongoDB -->
+    <!-- All Properties -->
     <section class="featured">
       <h3>Our Properties</h3>
+
+      <!-- Filter Buttons -->
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <button class="btn filter-btn active-filter" onclick="filterProperties('all')" style="background:#33463e;">All</button>
+        <button class="btn filter-btn" onclick="filterProperties('available')" style="background:#43e97b; color:#000;">Available</button>
+        <button class="btn filter-btn" onclick="filterProperties('sold')" style="background:#e74c3c;">Sold</button>
+        <button class="btn filter-btn" onclick="filterProperties('rented')" style="background:#2196F3;">Rented</button>
+      </div>
+
       <div class="property-grid" id="propertyGrid">
         <p>Loading...</p>
       </div>
@@ -131,35 +140,56 @@
   <script src="/js/index.js"></script>
   <script>
     const fallbackImg = 'https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=400&q=80';
+    let allProperties = [];
+
+    function renderProperties(properties) {
+      const grid = document.getElementById('propertyGrid');
+
+      if (!properties.length) {
+        grid.innerHTML = '<p style="text-align:center; padding:2rem;">No properties found.</p>';
+        return;
+      }
+
+      grid.innerHTML = properties.map(p => `
+        <div class="premium-property-card" onclick="window.location.href='/propertyDetail?id=${p._id}'" style="cursor:pointer;">
+          <div class="property-image-container">
+            <img src="${p.images?.[0] || fallbackImg}" alt="${p.title}" class="property-image">
+            <div class="property-badge badge-${p.status === 'sold' ? 'popular' : p.status === 'rented' ? 'new' : 'premium'}">
+              ${p.status === 'sold' ? 'SOLD' : p.status === 'rented' ? 'RENTED' : 'AVAILABLE'}
+            </div>
+          </div>
+          <div class="property-content">
+            <h4>${p.title}</h4>
+            <p>${p.description || ''}</p>
+            <div class="property-footer">
+              <div class="property-price">₹ ${Number(p.price).toLocaleString('en-IN')}</div>
+              <button class="btn" style="background:#33463e; color:#fff;">View Details</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterProperties(status) {
+      // update active button style
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.style.opacity = '0.6';
+      });
+      event.target.style.opacity = '1';
+
+      if (status === 'all') {
+        renderProperties(allProperties);
+      } else {
+        renderProperties(allProperties.filter(p => p.status === status));
+      }
+    }
 
     fetch('/property/all')
       .then(r => r.json())
       .then(data => {
-        const grid = document.getElementById('propertyGrid');
-
-        if (!data.success || !data.data.length) {
-          grid.innerHTML = '<p>No properties found.</p>';
-          return;
-        }
-
-        grid.innerHTML = data.data.map(p => `
-          <div class="premium-property-card" onclick="window.location.href='/propertyDetail?id=${p._id}'" style="cursor:pointer;">
-            <div class="property-image-container">
-              <img src="${p.images?.[0] || fallbackImg}" alt="${p.title}" class="property-image">
-              <div class="property-badge badge-${p.status === 'sold' ? 'popular' : p.status === 'rented' ? 'new' : 'premium'}">
-                ${p.status === 'sold' ? 'SOLD' : p.status === 'rented' ? 'RENTED' : 'AVAILABLE'}
-              </div>
-            </div>
-            <div class="property-content">
-              <h4>${p.title}</h4>
-              <p>${p.description || ''}</p>
-              <div class="property-footer">
-                <div class="property-price">₹ ${Number(p.price).toLocaleString('en-IN')}</div>
-                <button class="btn" style="background:#33463e; color:#fff;">View Details</button>
-              </div>
-            </div>
-          </div>
-        `).join('');
+        if (!data.success) return;
+        allProperties = data.data;
+        renderProperties(allProperties);
       })
       .catch(err => console.error('Properties load failed:', err));
   </script>

@@ -650,8 +650,6 @@ input, select, textarea {
   color: #232e29;
   font-size: 1.05rem;
 }
-
-/* ── Footer ── */
 footer {
   background: linear-gradient(135deg, #23272f 0%, var(--secondary-bg) 100%);
   color: var(--accent);
@@ -661,13 +659,18 @@ footer {
   gap: 2rem;
 }
 
+.footer-map {
+  grid-column: 1 / -1;
+}
+
 .footer-map iframe {
   border: 2px solid #5e5757;
   border-radius: 8px;
   width: 100%;
-  height: 200px;
+  height: 300px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
 }
+
 
 .footer-contact {
   font-size: 1rem;

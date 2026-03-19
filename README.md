@@ -1,29 +1,69 @@
-This project is a Node.js + Express-based real estate website designed for showcasing and managing residential properties in Muzaffarnagar, Uttar Pradesh. The app uses EJS templating and supports routes for browsing properties, logging in, user registration, and property management.
+# Vedanta Residency — Real Estate Web App
 
-🚀 Features
-Responsive frontend with EJS templates
+A Node.js + Express based real estate website built for showcasing and managing residential properties in Muzaffarnagar, Uttar Pradesh. Uses EJS templating with a clean MongoDB Atlas backend.
 
-Static file routing (CSS, JS, images)
+## Features
 
-Clean route-based page rendering:
+- Responsive frontend with EJS templates
+- MongoDB Atlas integration for cloud database storage
+- Property listing, adding, and detail view
+- User registration and login with localStorage session
+- Dashboard showing live property and enquiry counts
+- Image upload support via Multer
+- Static file routing for CSS, JS, and uploaded images
 
-/ - Home
+## Pages
 
-/login - Login page
+| Route | Description |
+|-------|-------------|
+| `/` | Home page with featured properties |
+| `/login` | Login page |
+| `/register` | Registration page |
+| `/dashboard` | User dashboard with live stats |
+| `/addProperty` | Add a new property |
+| `/propertyDetail` | Detailed view of a property |
 
-/register - Registration page
+## Tech Stack
 
-/propertyDetail - Detailed view of a property
+- **Frontend:** EJS, HTML, CSS, JavaScript
+- **Backend:** Node.js, Express
+- **Database:** MongoDB Atlas
+- **File Uploads:** Multer
+- **Dev Tools:** Nodemon, dotenv
 
-/dashboard - Admin/user dashboard
+## Environment Setup
 
-/addProperty - Add a new property
+This project uses a `.env` file for configuration. Create a `.env` file in the root of the project — same level as `app.js`:
+```env
+MONGO_URI=your_mongodb_atlas_connection_string
+DB_NAME=vedanta_residency
+PORT=3000
+```
 
-Server logs URL on startup (http://localhost:3000)
+To get your MongoDB Atlas connection string:
+1. Go to [MongoDB Atlas](https://cloud.mongodb.com)
+2. Select your cluster → Connect → Drivers
+3. Copy the connection string and replace `<password>` with your actual password
 
-🧰 Tech Stack
-Frontend: EJS, HTML, CSS, JavaScript
+A few things to keep in mind with the `.env` file:
+- No spaces around `=` — write `KEY=value` not `KEY = value`
+- No quotes around values
+- No semicolons at the end
 
-Backend: Node.js, Express
+> Never push your `.env` file to GitHub. Always add it to `.gitignore`.
 
-Development Tooling: nodemon
+## Getting Started
+```bash
+# Install dependencies
+npm install
+
+# Create uploads folder (required for image uploads)
+mkdir public/uploads
+
+# Run in development
+npm run dev
+
+# Run in production
+npm start
+```
+

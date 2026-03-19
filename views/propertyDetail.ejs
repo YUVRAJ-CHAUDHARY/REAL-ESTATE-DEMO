@@ -11,19 +11,143 @@
   <main>
     <div class="card">
       <h2>Property Details</h2>
-      <!-- Property details go here. Example: -->
       <% if (property) { %>
+
         <h3><%= property.title %></h3>
-        <p><%= property.description %></p>
-        <p><strong>Price:</strong> ₹<%= property.price %></p>
-        <% if (property.image) { %>
-          <img src="/uploads/<%= property.image %>" alt="Property Image" style="max-width:100%;border-radius:8px;margin:1rem 0;">
+
+        <% if (property.images && property.images.length) { %>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1rem 0;">
+            <% property.images.forEach(img => { %>
+              <img src="<%= img %>" alt="Property Image" style="max-width:300px; border-radius:8px; object-fit:cover;">
+            <% }) %>
+          </div>
         <% } %>
+
+        <p><%= property.description %></p>
+
+        <table style="width:100%; border-collapse:collapse; margin-top:1rem;">
+          <tr>
+            <td style="padding:8px;"><strong>Price</strong></td>
+            <td>₹ <%= Number(property.price).toLocaleString('en-IN') %></td>
+          </tr>
+          <% if (property.type) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Type</strong></td>
+            <td><%= property.type %></td>
+          </tr>
+          <% } %>
+          <% if (property.city) { %>
+          <tr>
+            <td style="padding:8px;"><strong>City</strong></td>
+            <td><%= property.city %></td>
+          </tr>
+          <% } %>
+          <% if (property.address) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Address</strong></td>
+            <td><%= property.address %></td>
+          </tr>
+          <% } %>
+          <% if (property.bedrooms) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Bedrooms</strong></td>
+            <td><%= property.bedrooms %></td>
+          </tr>
+          <% } %>
+          <% if (property.bathrooms) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Bathrooms</strong></td>
+            <td><%= property.bathrooms %></td>
+          </tr>
+          <% } %>
+          <% if (property.area) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Area</strong></td>
+            <td><%= property.area %> sq ft</td>
+          </tr>
+          <% } %>
+          <% if (property.status) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Status</strong></td>
+            <td><%= property.status %></td>
+          </tr>
+          <% } %>
+          <% if (property.ownerName) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Owner</strong></td>
+            <td><%= property.ownerName %></td>
+          </tr>
+          <% } %>
+          <% if (property.ownerPhone) { %>
+          <tr>
+            <td style="padding:8px;"><strong>Contact</strong></td>
+            <td><a href="tel:<%= property.ownerPhone %>"><%= property.ownerPhone %></a></td>
+          </tr>
+          <% } %>
+        </table>
+
+        <!-- Enquiry Form -->
+        <div style="margin-top:2rem;">
+          <h4>Send Enquiry</h4>
+          <p id="enquiryError" style="color:red; display:none;"></p>
+          <p id="enquirySuccess" style="color:green; display:none;"></p>
+          <form id="enquiryForm">
+            <label for="ename">Your Name</label>
+            <input type="text" id="ename" required>
+            <label for="ephone">Phone Number</label>
+            <input type="text" id="ephone" required>
+            <label for="emessage">Message</label>
+            <textarea id="emessage" rows="3"></textarea>
+            <button type="submit" class="btn" style="margin-top:1rem;">Send Enquiry</button>
+          </form>
+        </div>
+
       <% } else { %>
         <p>Property not found.</p>
+        <a href="/" class="btn" style="margin-top:1rem;">Go Back Home</a>
       <% } %>
     </div>
   </main>
   <%- include("include/footer.ejs"); %>
+
+  <script>
+    const enquiryForm = document.getElementById('enquiryForm');
+    if (enquiryForm) {
+      enquiryForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('ename').value;
+        const phone = document.getElementById('ephone').value;
+        const message = document.getElementById('emessage').value;
+        const errorEl = document.getElementById('enquiryError');
+        const successEl = document.getElementById('enquirySuccess');
+
+        errorEl.style.display = 'none';
+        successEl.style.display = 'none';
+
+        try {
+          const res = await fetch('/enquiry/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, message })
+          });
+
+          const data = await res.json();
+
+          if (data.success) {
+            successEl.style.display = 'block';
+            successEl.textContent = 'Enquiry sent! We will contact you soon.';
+            enquiryForm.reset();
+          } else {
+            errorEl.style.display = 'block';
+            errorEl.textContent = data.message || 'Something went wrong';
+          }
+        } catch (err) {
+          errorEl.style.display = 'block';
+          errorEl.textContent = 'Server error, try again';
+        }
+      });
+    }
+  </script>
 </body>
-</html> 
+</html>

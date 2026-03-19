@@ -1,12 +1,35 @@
-  <header>
-    <div class="navbar">
-      <div class="logo">Vedanta Residency</div>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/addProperty">Add Property</a>
+<header>
+  <div class="navbar">
+    <div class="logo">Vedanta Residency</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/addProperty">Add Property</a>
+      <span id="authLinks">
         <a href="/login">Login</a>
         <a href="/register">Register</a>
-      </nav>
-    </div>
-  </header>
+      </span>
+      <span id="logoutBtn" style="display:none;">
+        <span id="headerUserName" style="margin-right:10px; font-weight:600;"></span>
+        <a href="#" onclick="logout()">Logout</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const userId = localStorage.getItem('userId');
+  const userName = localStorage.getItem('userName');
+
+  if (userId) {
+    document.getElementById('authLinks').style.display = 'none';
+    document.getElementById('logoutBtn').style.display = 'inline';
+    document.getElementById('headerUserName').textContent = 'Hi, ' + userName;
+  }
+
+  function logout() {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    window.location.href = '/';
+  }
+</script>

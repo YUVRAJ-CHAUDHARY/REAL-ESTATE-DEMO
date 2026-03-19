@@ -1,30 +1,80 @@
-<%- include('include/head.ejs') %>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Vedanta Residency</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 <body>
-  <%- include('include/header.ejs') %>
+  <%- include("include/header.ejs") %>
   <main>
-    <h2 style="text-align:center; margin-bottom:2rem;">Dashboard</h2>
-    <div class="dashboard-cards">
-      <div class="dashboard-card dashboard-card-green">
-        <div class="dashboard-card-icon"><i class="fas fa-home"></i></div>
-        <div class="dashboard-card-title">My Properties</div>
-        <div class="dashboard-card-value">5</div>
-      </div>
-      <div class="dashboard-card dashboard-card-blue">
-        <div class="dashboard-card-icon"><i class="fas fa-user"></i></div>
-        <div class="dashboard-card-title">Profile</div>
-        <div class="dashboard-card-value">Edit</div>
-      </div>
-      <div class="dashboard-card dashboard-card-orange">
-        <div class="dashboard-card-icon"><i class="fas fa-bell"></i></div>
-        <div class="dashboard-card-title">Notifications</div>
-        <div class="dashboard-card-value">2</div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:2rem;">
-      <p>Welcome to your dashboard. Manage your properties and profile here.</p>
+    <div class="card">
+      <h2>Register</h2>
+      <p id="errorMsg" style="color:red; display:none;"></p>
+      <p id="successMsg" style="color:green; display:none;"></p>
+      <form id="registerForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" class="btn">Register</button>
+      </form>
+      <p>Already have an account? <a href="/login" style="color:var(--accent)">Login</a></p>
     </div>
   </main>
-    <%- include("include/footer.ejs"); %>
+  <%- include("include/footer.ejs"); %>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+      const successMsg = document.getElementById('successMsg');
+
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+
+      try {
+        const res = await fetch('/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('userName', name);
+          successMsg.style.display = 'block';
+          successMsg.textContent = 'Registration successful! Redirecting...';
+          setTimeout(() => window.location.href = '/dashboard', 1500);
+        } else {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = data.message || 'Registration failed';
+        }
+      } catch (err) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = 'Something went wrong, try again';
+      }
+    });
+    fetch('/dashboard/stats')
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      document.getElementById('propertyCount').textContent = data.propertyCount;
+      document.getElementById('enquiryCount').textContent = data.enquiryCount;
+      // localStorage se naam lega, nahi mila toh API wala
+      const name = localStorage.getItem('userName') || data.userName;
+      document.getElementById('userName').textContent = name;
+    }
+  });
+  </script>
 </body>
 </html>

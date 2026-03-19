@@ -181,6 +181,9 @@
       try {
         const res = await fetch('/property/add', {
           method: 'POST',
+          headers: {
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  },
           body: new FormData(this)
         });
 

@@ -531,7 +531,7 @@ header p {
 
 button, .btn {
   background: var(--accent);
-  color: #fff;
+  color: #0f8aa8;
   border: none;
   border-radius: 5px;
   padding: 0.6rem 1.2rem;
